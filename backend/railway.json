@@ -1,0 +1,47 @@
+{
+  "$schema": "https://railway.app/schema.json",
+  "build": {
+    "builder": "DOCKERFILE",
+    "dockerfile": "Dockerfile"
+  },
+  "deploy": {
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 5,
+    "startCommand": "npm start",
+    "numReplicas": 1
+  },
+  "variables": {
+    "PORT": {
+      "description": "Port to run the server on",
+      "value": "5000"
+    },
+    "NODE_ENV": {
+      "description": "Node environment",
+      "value": "production"
+    },
+    "JWT_EXPIRATION": {
+      "description": "JWT token expiration time",
+      "value": "7d"
+    },
+    "CORS_ORIGIN": {
+      "description": "CORS allowed origin (set your frontend URL)",
+      "value": "https://your-frontend-domain.com"
+    }
+  },
+  "services": [
+    {
+      "key": "postgres",
+      "image": "postgres:15-alpine",
+      "variables": {
+        "POSTGRES_USER": {
+          "description": "Database user",
+          "value": "project_user"
+        },
+        "POSTGRES_DB": {
+          "description": "Database name",
+          "value": "project_management"
+        }
+      }
+    }
+  ]
+}
